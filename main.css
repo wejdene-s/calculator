@@ -27,7 +27,7 @@ section{
     width: 700px;
 }
 .operation-field{
-    height: 10rem;
+    height: 12rem;
     
 }
 .buttons-field{
@@ -47,4 +47,10 @@ button{
 button:hover{
     cursor: pointer;
     background-color: rgba(119, 81, 68, 0.2) ;
+}
+#equal{
+    background-color: rgba(193, 211, 254, 0.5);
+}
+#equal:hover{
+    background-color: rgb(193, 211, 254);
 }
