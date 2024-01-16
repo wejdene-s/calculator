@@ -12,15 +12,22 @@ const init =() => {
     numbers.forEach(number =>{
         number.addEventListener("click", displayNumber);
     })
+
+    const clearEntry = document.getElementById("clear-entry");
+    clearEntry.addEventListener("click", cEntry);
+
+    const backSpace = document.getElementById("back-space");
+    backSpace.addEventListener("click", back);
 }
 document.addEventListener("DOMContentLoaded", init);
 
 const resetResult = () =>{
-    const result = document.querySelector(".result");
-    result.textContent = operationObj.getResult();
     if (operationObj.getStatus()){
         endOperation();
     }
+    const result = document.querySelector(".result");
+    result.textContent = operationObj.getResult();
+
 }
 
 const endOperation = function(){
@@ -40,6 +47,23 @@ const displayNumber = (event) =>{
         operationObj.setOperand(event.target.textContent);
         document.querySelector(".result").textContent = operationObj.getOperand();
     }
+}
+
+const cEntry = () =>{
+    operationObj.removeOperand();
+    document.querySelector(".result").textContent = "0";
+
+}
+
+const back = () =>{
+    let newOperand = operationObj.getOperand();
+    operationObj.removeOperand();
+    operationObj.setOperand(newOperand.slice(0,- 1));
+    document.querySelector(".result").textContent = operationObj.getOperand();
+    if (operationObj.getOperand() === "" ){
+        document.querySelector(".result").textContent = "0";
+    }
+
 
 }
 
