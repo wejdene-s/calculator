@@ -21,6 +21,9 @@ const init =() => {
 
     const point = document.getElementById("point");
     point.addEventListener("click", addPoint);
+
+    const sign = document.getElementById("toggle-sign");
+    sign.addEventListener("click", changeSign );
 }
 document.addEventListener("DOMContentLoaded", init);
 
@@ -48,7 +51,6 @@ const displayNumber = (event) =>{
     }
     if (operationObj.getOperand().length < 16 && operationObj.getStatus()){
         operationObj.setOperand(event.target.textContent);
-        console.log(operationObj.getOperand());
         document.querySelector(".result").textContent = operationObj.getOperand();
     }
 }
@@ -78,9 +80,23 @@ const addPoint = () =>{
         }else{
             operationObj.setOperand(".");
         }
-        console.log(operationObj.getOperand());
         document.querySelector(".result").textContent = operationObj.getOperand();
     }
     
+}
+
+const changeSign = () => {
+    if (operationObj.getStatus()){
+        const currentOperand = operationObj.getOperand();
+        operationObj.removeOperand();
+        if(currentOperand.charAt(0) === "-"){
+            operationObj.setOperand(currentOperand.slice(1));
+        }else{
+            operationObj.setOperand("-"+ currentOperand);
+        }
+        document.querySelector(".result").textContent = operationObj.getOperand();
+        
+
+    }
 
 }
