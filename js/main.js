@@ -18,6 +18,9 @@ const init =() => {
 
     const backSpace = document.getElementById("back-space");
     backSpace.addEventListener("click", back);
+
+    const point = document.getElementById("point");
+    point.addEventListener("click", addPoint);
 }
 document.addEventListener("DOMContentLoaded", init);
 
@@ -40,11 +43,12 @@ const endOperation = function(){
 }
 
 const displayNumber = (event) =>{
-    if (!(operationObj.getStatus())) {
+    if (!(operationObj.getStatus()) && event.target.textContent !== "0") {//handling the 0 at the beginning 
         operationObj.setStatus(true);
     }
-    if (operationObj.getOperand().length < 16){
+    if (operationObj.getOperand().length < 16 && operationObj.getStatus()){
         operationObj.setOperand(event.target.textContent);
+        console.log(operationObj.getOperand());
         document.querySelector(".result").textContent = operationObj.getOperand();
     }
 }
@@ -67,3 +71,16 @@ const back = () =>{
 
 }
 
+const addPoint = () =>{
+    if (operationObj.getOperand().indexOf(".") === -1) {
+        if (!(operationObj.getStatus())){
+            operationObj.setOperand("0.");
+        }else{
+            operationObj.setOperand(".");
+        }
+        console.log(operationObj.getOperand());
+        document.querySelector(".result").textContent = operationObj.getOperand();
+    }
+    
+
+}
