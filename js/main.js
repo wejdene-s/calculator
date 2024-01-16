@@ -66,7 +66,7 @@ const back = () =>{
     operationObj.removeOperand();
     operationObj.setOperand(newOperand.slice(0,- 1));
     document.querySelector(".result").textContent = operationObj.getOperand();
-    if (operationObj.getOperand() === "" ){
+    if (operationObj.getOperand() === "" || operationObj.getOperand() === "-" ){
         document.querySelector(".result").textContent = "0";
     }
 
@@ -86,7 +86,7 @@ const addPoint = () =>{
 }
 
 const changeSign = () => {
-    if (operationObj.getStatus()){
+    if (operationObj.getOperand() !== ""){
         const currentOperand = operationObj.getOperand();
         operationObj.removeOperand();
         if(currentOperand.charAt(0) === "-"){
@@ -98,5 +98,6 @@ const changeSign = () => {
         
 
     }
+    
 
 }
