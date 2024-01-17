@@ -114,7 +114,7 @@ const changeSign = () => {
 
 const displayOperator = (event) => {
     if (operationObj.getStatus()) {
-        if (operationObj.getOperand() && operationObj.getOperator() && operationObj.getOperand1()){
+        if (operationObj.getOperand() && operationObj.getOperator() && operationObj.getOperand1() && !(operationObj.getResult())){
             operationObj.setOperand2(Number(operationObj.getOperand()));
             const result = calculateResult();
             operationObj.setOperand1(result);
@@ -164,5 +164,4 @@ const displayResult = () => {
             }
 
         }
-
 }
