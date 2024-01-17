@@ -35,7 +35,7 @@ section{
 
 .operation-result{
     text-align: end;
-    margin-top: 4rem;
+    margin-top: 3.5rem;
     display: flex;
     flex-direction: column;
     justify-content: space-between;

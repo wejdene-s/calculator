@@ -24,6 +24,11 @@ const init =() => {
 
     const sign = document.getElementById("toggle-sign");
     sign.addEventListener("click", changeSign );
+
+    const operators = document.querySelectorAll(".operator");
+    operators.forEach(operator => {
+        operator.addEventListener("click", displayOperator);
+    })
 }
 document.addEventListener("DOMContentLoaded", init);
 
@@ -33,6 +38,8 @@ const resetResult = () =>{
     }
     const result = document.querySelector(".result");
     result.textContent = operationObj.getResult();
+    const operation = document.querySelector(".operation");
+    operation.textContent = "";
 
 }
 
@@ -62,10 +69,12 @@ const cEntry = () =>{
 }
 
 const back = () =>{
-    let newOperand = operationObj.getOperand();
-    operationObj.removeOperand();
-    operationObj.setOperand(newOperand.slice(0,- 1));
-    document.querySelector(".result").textContent = operationObj.getOperand();
+    if (operationObj.getOperand() && operationObj.getOperator() === ""){
+        let newOperand = operationObj.getOperand();
+        operationObj.removeOperand();
+        operationObj.setOperand(newOperand.slice(0,- 1));
+        document.querySelector(".result").textContent = operationObj.getOperand();
+    }
     if (operationObj.getOperand() === "" || operationObj.getOperand() === "-" ){
         document.querySelector(".result").textContent = "0";
     }
@@ -81,6 +90,7 @@ const addPoint = () =>{
             operationObj.setOperand(".");
         }
         document.querySelector(".result").textContent = operationObj.getOperand();
+        operationObj.setStatus(true);
     }
     
 }
@@ -96,8 +106,58 @@ const changeSign = () => {
         }
         document.querySelector(".result").textContent = operationObj.getOperand();
         
-
     }
     
+}
 
+const displayOperator = (event) => {
+/*     if (operationObj.getStatus()){
+        if (event.target.textContent !== operationObj.getOperator()){
+            operationObj.setOperator(event.target.textContent);
+            operationObj.setOperand1(Number(operationObj.getOperand()));
+            document.querySelector(".operation").textContent = `${operationObj.getResult()} ${operationObj.getOperator()}`;
+            operationObj.removeOperand();
+            console.log(operationObj.getOperand1());
+            console.log(operationObj.getOperator());
+        }
+
+    }*/
+    if (operationObj.getStatus()) {
+        if (operationObj.getOperand() && operationObj.getOperator() && operationObj.getOperand1()){
+            operationObj.setOperand2(Number(operationObj.getOperand()));
+            const result = getResult();
+            operationObj.setOperand1(result);
+
+            document.querySelector(".result").textContent = result;
+        }
+        if (!(operationObj.getOperand1())){
+                operationObj.setOperand1(Number(operationObj.getOperand()));
+        }
+            operationObj.setOperator(event.target.textContent);
+            document.querySelector(".operation").textContent = `${operationObj.getOperand1()} ${operationObj.getOperator()} `;
+            operationObj.removeOperand();
+
+
+
+    }
+} 
+
+const getResult = () => {
+        const operator = operationObj.getOperator();
+    let result;
+    switch (operator){
+        case ("+"):
+            result = operationObj.getOperand1() + operationObj.getOperand2();
+            break;
+        case ("-"):
+            result = operationObj.getOperand1() - operationObj.getOperand2();
+            break;
+        case ("*"):
+            result = operationObj.getOperand1() * operationObj.getOperand2();
+            break;
+        case ("/"):
+            result = operationObj.getOperand1() / operationObj.getOperand2();
+            break;
+    }
+    return result;
 }
