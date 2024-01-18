@@ -56,7 +56,7 @@ const endOperation = function(){
 }
 
 const displayNumber = (event) =>{
-    if (!(operationObj.getStatus()) && event.target.textContent !== "0") {//handling the 0 at the beginning 
+    if (!(operationObj.getStatus()) && event.target.textContent !== "0") {
         operationObj.setStatus(true);
     }
     if (operationObj.getOperand().length < 16 && operationObj.getStatus()){
@@ -85,15 +85,15 @@ const back = () =>{
 }
 
 const addPoint = () =>{
-    if (operationObj.getOperand().indexOf(".") === -1) {
-        if (!(operationObj.getStatus())){
-            operationObj.setOperand("0.");
-        }else{
-            operationObj.setOperand(".");
-        }
-        document.querySelector(".result").textContent = operationObj.getOperand();
-        operationObj.setStatus(true);
+    if(!(operationObj.getOperand())){
+        operationObj.setOperand("0."); 
     }
+    if (operationObj.getOperand().indexOf(".") === -1) {
+        operationObj.setOperand(".");
+    }
+    document.querySelector(".result").textContent = operationObj.getOperand();
+    operationObj.setStatus(true);
+    
     
 }
 
